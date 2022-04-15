@@ -41,6 +41,10 @@ kubectl get deploy,pod,svc -n default
 
 kubectl logs -f deployment.apps/helm-repo-api-v1 -n default
 
+# test kube-score (https://github.com/zegl/kube-score)
+kubectl get deployment.apps/helm-repo-api-v1 -n default -o yaml | kube-score score -
+
+
 # test API
 SVC_IP="$(kubectl get service/helm-repo-api-v1 -n default --no-headers | tr -s ' ' ' ' | cut -d' ' -f3)"
 echo "${SVC_IP}"

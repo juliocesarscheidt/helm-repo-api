@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: juliocesarmidia/http-simple-api
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -25,16 +25,16 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext:
+  fsGroup: 1000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
 
 service:
   type: ClusterIP
@@ -64,9 +64,11 @@ resources:
   limits:
     cpu: 100m
     memory: 128Mi
+    ephemeral-storage: "100Mi"
   requests:
     cpu: 100m
     memory: 128Mi
+    ephemeral-storage: "100Mi"
 
 autoscaling:
   enabled: false

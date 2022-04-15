@@ -44,6 +44,8 @@ spec:
                   fieldPath: metadata.namespace
             - name: API_PORT
               value: "9000"
+            - name: MESSAGE
+              value: "Helm Repo API v1"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
