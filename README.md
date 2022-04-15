@@ -40,3 +40,14 @@ curl -X GET --silent "http://${SVC_IP}:9000"
 
 
 helm uninstall -n default helm-repo-api
+
+
+
+cd charts
+tar -czvf helm-repo-api-0.0.1.tgz ./helm-repo-api
+helm repo index .
+
+
+
+helm repo add helm-repo-api https://juliocesarscheidt.github.io/helm-repo-api
+
