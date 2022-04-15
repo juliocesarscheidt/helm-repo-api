@@ -3,6 +3,16 @@ entries:
   helm-repo-api:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-04-15T03:10:22.511452491Z"
+    description: A Helm chart for Kubernetes
+    digest: 22c080813ad7a3d66168d34ee074b38203a695a346d84a573b61a3db99f4bf72
+    name: helm-repo-api
+    type: application
+    urls:
+    - https://github.com/juliocesarscheidt/helm-repo-api/releases/download/helm-repo-api-0.1.3/helm-repo-api-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-04-15T02:50:22.600698979Z"
     description: A Helm chart for Kubernetes
     digest: d4b267c417ec8a0057dec9848337a974cd5c5ae38fd4e35f5e90b0b0d0358788
