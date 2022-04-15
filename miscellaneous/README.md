@@ -1,4 +1,6 @@
+## Local
 
+```bash
 
 docker image pull juliocesarmidia/http-simple-api:latest
 
@@ -41,17 +43,20 @@ curl -X GET --silent "http://${SVC_IP}:9000"
 
 helm uninstall -n default helm-repo-api
 
+```
 
-helm repo index .
+## Helm Repo
 
-
-cd charts
-tar -czvf helm-repo-api-0.0.1.tgz ./helm-repo-api
-
-
+```bash
+#
 
 helm repo add juliocesarscheidt https://juliocesarscheidt.github.io/helm-repo-api
 
-
+helm repo update
 helm search repo juliocesarscheidt
 
+helm install helm-repo-api-v1 juliocesarscheidt/helm-repo-api -n default
+
+helm uninstall -n default helm-repo-api-v1
+
+```
