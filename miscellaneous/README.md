@@ -1,4 +1,4 @@
-## Local
+## Docker
 
 ```bash
 
@@ -12,40 +12,47 @@ docker container run --rm -d \
 
 docker container logs -f http-simple-api
 
-curl http://localhost:9000
+curl -X GET --silent "http://localhost:9000"
 # hello world
 
 docker container rm -f http-simple-api
 
+```
 
---values custom-values.yaml
-helm upgrade -i -n default helm-repo-api ./charts/helm-repo-api/ --set image.tag="v2.0.0"
+## Helm Local
 
-helm upgrade -i -n default helm-repo-api ./charts/helm-repo-api/ --values custom-values.yaml
+```bash
 
+# install with a different tag
+helm upgrade -i -n default helm-repo-api-v1 ./charts/helm-repo-api/ --set image.tag="v2.0.0"
 
-helm upgrade -i --dry-run --debug -n default helm-repo-api ./charts/helm-repo-api/
+# install with custom values
+helm upgrade -i -n default helm-repo-api-v1 ./charts/helm-repo-api/ --values custom-values.yaml
 
-helm upgrade -i -n default helm-repo-api ./charts/helm-repo-api/
+# dry run install
+helm upgrade -i --dry-run --debug -n default helm-repo-api-v1 ./charts/helm-repo-api/
+
+# default install
+helm upgrade -i -n default helm-repo-api-v1 ./charts/helm-repo-api/
 
 
 helm ls -n default
 kubectl get deploy,pod,svc -n default
 
-kubectl logs -f deployment.apps/helm-repo-api -n default
+kubectl logs -f deployment.apps/helm-repo-api-v1 -n default
 
-SVC_IP="$(kubectl get service/helm-repo-api -n default --no-headers | tr -s ' ' ' ' | cut -d' ' -f3)"
+
+SVC_IP="$(kubectl get service/helm-repo-api-v1 -n default --no-headers | tr -s ' ' ' ' | cut -d' ' -f3)"
 echo "${SVC_IP}"
-
 
 curl -X GET --silent "http://${SVC_IP}:9000"
 
 
-helm uninstall -n default helm-repo-api
+helm uninstall -n default helm-repo-api-v1
 
 ```
 
-## Helm Repo
+## Helm Repo Github Pages
 
 ```bash
 #
@@ -56,6 +63,13 @@ helm repo update
 helm search repo juliocesarscheidt
 
 helm install helm-repo-api-v1 juliocesarscheidt/helm-repo-api -n default
+
+
+SVC_IP="$(kubectl get service/helm-repo-api-v1 -n default --no-headers | tr -s ' ' ' ' | cut -d' ' -f3)"
+echo "${SVC_IP}"
+
+curl -X GET --silent "http://${SVC_IP}:9000"
+
 
 helm uninstall -n default helm-repo-api-v1
 
